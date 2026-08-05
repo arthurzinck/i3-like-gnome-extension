@@ -34,7 +34,12 @@ gsettings set org.gnome.desktop.wm.keybindings close "['<Super><Shift>q']"
 gsettings set org.gnome.shell.keybindings toggle-application-view "['<Super>d']"
 ```
 
-### 5. Setup Workspace Shortcuts (Super+1-0)
+### 5. Remove existing switch to app binding
+```bash
+for i in {1..9}; do gsettings set "org.gnome.shell.keybindings" "switch-to-application-$i" "[]"; done
+```
+
+### 6. Setup Workspace Shortcuts (Super+1-0)
 ```bash
 # Switch to workspace shortcuts
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
@@ -49,7 +54,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-9 "['<Super>9
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>0']"
 ```
 
-### 6. Setup Move Window to Workspace Shortcuts (Super+Shift+1-0)
+### 7. Setup Move Window to Workspace Shortcuts (Super+Shift+1-0)
 ```bash
 # Move window to workspace shortcuts
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Super><Shift>1']"
@@ -69,6 +74,7 @@ gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-10 "['<Super><S
 # Complete workspace setup
 gsettings set org.gnome.mutter dynamic-workspaces false && \
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 10 && \
+for i in {1..9}; do gsettings set "org.gnome.shell.keybindings" "switch-to-application-$i" "[]"; done && \
 for i in {1..9}; do gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<Super>$i']"; done && \
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-10 "['<Super>0']" && \
 for i in {1..9}; do gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Super><Shift>$i']"; done && \
